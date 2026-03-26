@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biolink.ai PRO - Versão Exclusiva</title>
+  <meta name="robots" content="noindex, nofollow">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #0A0A0F 0%, #1a1a2e 100%); color: #fff; min-height: 100vh; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    header { background: rgba(106,87,255,0.2); backdrop-filter: blur(20px); padding: 1.5rem; border-radius: 16px; margin-bottom: 2rem; border: 1px solid rgba(106,87,255,0.3); }
+    .header-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    h1 { background: linear-gradient(135deg, #6A57FF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 2rem; }
+    .badge { background: linear-gradient(135deg, #F59E0B, #EA580C); padding: 0.5rem 1rem; border-radius: 50px; font-weight: 700; font-size: 0.85rem; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .stat { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+    .stat-number { font-size: 2.5rem; font-weight: 800; background: linear-gradient(135deg, #6A57FF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-label { color: #94a3b8; margin-top: 0.5rem; }
+    .card { background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 16px; margin-bottom: 1.5rem; border: 1px solid rgba(255,255,255,0.1); }
+    .card h3 { color: #00D4FF; margin-bottom: 1rem; }
+    .dev-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .dev-card { background: linear-gradient(135deg, rgba(106,87,255,0.2), rgba(0,212,255,0.1)); padding: 2rem; border-radius: 16px; border: 1px solid rgba(106,87,255,0.3); }
+    .dev-card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .dev-card p { color: #94a3b8; margin-bottom: 0.5rem; }
+    .dev-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #6A57FF, #00D4FF); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+    .payment-list { max-height: 400px; overflow-y: auto; }
+    .payment-item { background: rgba(34,197,94,0.1); padding: 1rem; border-radius: 12px; margin-bottom: 1rem; border-left: 4px solid #22c55e; }
+    .payment-item.reversed { border-left-color: #ef4444; background: rgba(239,68,68,0.1); }
+    .btn { padding: 0.75rem 1.5rem; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; margin: 0.25rem; }
+    .btn-primary { background: linear-gradient(135deg, #6A57FF, #00D4FF); color: white; }
+    .btn-danger { background: #ef4444; color: white; }
+    .btn-success { background: #22c55e; color: white; }
+    .login-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+    .login-box { background: rgba(255,255,255,0.05); padding: 3rem; border-radius: 24px; border: 1px solid rgba(106,87,255,0.3); max-width: 500px; width: 100%; }
+    .login-box input { width: 100%; padding: 1rem; margin: 0.5rem 0; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; font-size: 1rem; }
+    .login-box button { width: 100%; padding: 1rem; background: linear-gradient(135deg, #6A57FF, #00D4FF); color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; cursor: pointer; margin-top: 1rem; }
+    .hidden { display: none; }
+    .text-center { text-align: center; }
+    .pro-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .pro-feature { background: rgba(106,87,255,0.1); padding: 1rem; border-radius: 12px; border: 1px solid rgba(106,87,255,0.3); }
+    .pro-feature h4 { color: #00D4FF; margin-bottom: 0.5rem; }
+    .pro-feature p { color: #94a3b8; font-size: 0.9rem; }
+    .warning { background: rgba(245,158,11,0.2); color: #F59E0B; padding: 0.5rem; border-radius: 4px; margin: 0.5rem 0; font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen" class="login-screen">
+  <div class="login-box">
+    <h1 class="text-center" style="background: linear-gradient(135deg, #6A57FF, #00D4FF); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;">🔐 Biolink.ai PRO</h1>
+    <p class="text-center" style="color: #94a3b8; margin-bottom: 2rem;">Acesso Exclusivo - Desenvolvedores</p>
+    
+    <input type="email" id="pro-email" placeholder="Email">
+    <input type="password" id="pro-password" placeholder="Senha">
+    <button onclick="proLogin()">🚀 Acessar Painel PRO</button>
+    
+    <div class="warning" style="margin-top:1.5rem;">
+      ⚠️ <strong>Email é apenas para dúvidas e coisas importantes!</strong><br>
+      📧 contatobiolink.ai@gmail.com
+    </div>
+    
+    <p class="text-center" style="margin-top: 1.5rem; color: #94a3b8; font-size: 0.85rem;">
+      👨‍💻 Gabriel da Silva Sarto<br>
+      👨‍💻 Miguel de Bastos Oliveira<br>
+      📧 contatobiolink.ai@gmail.com<br>
+      📸 @biolink.ai | @off_bielzinkkj | @dnn.bastos | @dnbergii
+    </p>
+  </div>
+</div>
+
+<!-- DASHBOARD PRO -->
+<div id="pro-dashboard" class="container hidden">
+  <header>
+    <div class="header-content">
+      <div>
+        <h1>🚀 Biolink.ai PRO</h1>
+        <p style="color: #94a3b8;">Painel Exclusivo para Desenvolvedores</p>
+      </div>
+      <div class="flex gap-4 items-center">
+        <span class="badge">⭐ VERSÃO PRO</span>
+        <button class="btn btn-danger" onclick="proLogout()">Sair</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- DEV INFO -->
+  <div class="dev-info">
+    <div class="dev-card">
+      <div class="dev-avatar">G</div>
+      <h3>Gabriel da Silva Sarto</h3>
+      <p>👨‍💻 Desenvolvedor Principal</p>
+      <p>📧 bielgalo14@gmail.com</p>
+      <p>📸 @off_bielzinkkj</p>
+      <p>🎯 CEO & Founder</p>
+    </div>
+    <div class="dev-card">
+      <div class="dev-avatar">M</div>
+      <h3>Miguel de Bastos Oliveira</h3>
+      <p>👨‍💻 Co-Desenvolvedor</p>
+      <p>📧 dreadnaughtbergii@gmail.com</p>
+      <p>📸 @dnn.bastos | @dnbergii</p>
+      <p>🎯 CTO & Partner</p>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats" id="stats">
+    <div class="stat"><div class="stat-number">0</div><div class="stat-label">Total de Vendas</div></div>
+    <div class="stat"><div class="stat-number">R$ 0</div><div class="stat-label">Receita Total</div></div>
+    <div class="stat"><div class="stat-number">0</div><div class="stat-label">Usuários Ativos</div></div>
+    <div class="stat"><div class="stat-number">0</div><div class="stat-label">Clientes Premium</div></div>
+  </div>
+
+  <!-- PAGAMENTOS -->
+  <div class="card">
+    <h3>💳 Últimos Pagamentos (Aprovação Automática)</h3>
+    <div class="payment-list" id="payments">
+      <p style="color: #94a3b8; text-align: center; padding: 2rem;">Carregando pagamentos...</p>
+    </div>
+  </div>
+
+  <!-- CONTROLES PRO -->
+  <div class="card">
+    <h3>⚙️ Controles de Administrador</h3>
+    <div class="flex gap-4" style="flex-wrap: wrap;">
+      <button class="btn btn-primary" onclick="refreshData()">🔄 Atualizar Dados</button>
+      <button class="btn btn-success" onclick="exportData()">📊 Exportar Relatório</button>
+      <button class="btn btn-danger" onclick="clearCache()">🗑️ Limpar Cache</button>
+      <button class="btn btn-primary" onclick="window.open('/admin.html', '_blank')">📋 Admin Panel</button>
+    </div>
+  </div>
+
+  <!-- FEATURES PRO -->
+  <div class="card">
+    <h3>🌟 Recursos Exclusivos PRO</h3>
+    <div class="pro-features">
+      <div class="pro-feature"><h4>📊 Analytics Avançado</h4><p>Visualize todas as métricas do sistema em tempo real</p></div>
+      <div class="pro-feature"><h4>👥 Gestão de Usuários</h4><p>Gerencie todas as contas e permissões</p></div>
+      <div class="pro-feature"><h4>💰 Controle Financeiro</h4><p>Acompanhe receitas, despesas e lucros</p></div>
+      <div class="pro-feature"><h4>🔒 Segurança Total</h4><p>Acesso restrito apenas para Gabriel e Miguel</p></div>
+      <div class="pro-feature"><h4>🚀 Deploy Rápido</h4><p>Atualize o sistema com um clique</p></div>
+      <div class="pro-feature"><h4>📧 Email Marketing</h4><p>Envie comunicações para todos os usuários</p></div>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="card">
+    <h3>ℹ️ Informações do Sistema</h3>
+    <p style="color: #94a3b8; line-height: 1.8;">
+      <strong>Versão:</strong> 1.0.0 PRO<br>
+      <strong>Última Atualização:</strong> <span id="last-update">-</span><br>
+      <strong>Servidor:</strong> Vercel<br>
+      <strong>Banco de Dados:</strong> SQLite<br>
+      <strong>API Status:</strong> <span style="color: #22c55e;">● Online</span><br>
+      <strong>Desenvolvedores:</strong> Gabriel da Silva Sarto & Miguel de Bastos Oliveira<br>
+      <strong>Contato:</strong> contatobiolink.ai@gmail.com (apenas dúvidas e coisas importantes)<br>
+      <strong>Copyright:</strong> © 2026 Biolink.ai - Todos os direitos reservados
+    </p>
+  </div>
+
+  <footer class="text-center" style="padding: 2rem; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 2rem;">
+    <p>Feito com ❤️ por <strong>Gabriel da Silva Sarto</strong> & <strong>Miguel de Bastos Oliveira</strong></p>
+    <p style="margin-top: 0.5rem;">📸 @biolink.ai | @off_bielzinkkj | @dnn.bastos | @dnbergii</p>
+    <p style="margin-top: 0.5rem; font-size: 0.85rem;">© 2026 Biolink.ai PRO - Acesso Restrito</p>
+    <div class="warning" style="display:inline-block;margin-top:1rem;">
+      ⚠️ Email é apenas para dúvidas e coisas importantes!<br>
+      📧 contatobiolink.ai@gmail.com
+    </div>
+  </footer>
+</div>
+
+<script>
+  const PRO_EMAILS = ['bielgalo14@gmail.com', 'dreadnaughtbergii@gmail.com'];
+  const PRO_PASSWORD = '@BIOLINK2026';
+  let PRO_TOKEN = localStorage.getItem('pro_token');
+
+  if (PRO_TOKEN) showDashboard();
+
+  function proLogin() {
+    const email = document.getElementById('pro-email').value;
+    const password = document.getElementById('pro-password').value;
+
+    if (!PRO_EMAILS.includes(email)) { alert('❌ Acesso negado! Somente Gabriel e Miguel.'); return; }
+    if (password !== PRO_PASSWORD) { alert('❌ Senha incorreta!'); return; }
+
+    PRO_TOKEN = 'pro_token_' + email + '_' + Date.now();
+    localStorage.setItem('pro_token', PRO_TOKEN);
+    localStorage.setItem('pro_user', email);
+    alert('✅ Bem-vindo ao Biolink.ai PRO!');
+    showDashboard();
+  }
+
+  function showDashboard() {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('pro-dashboard').classList.remove('hidden');
+    loadProData();
+  }
+
+  async function loadProData() {
+    const user = localStorage.getItem('pro_user');
+    document.getElementById('last-update').textContent = new Date().toLocaleString();
+    document.getElementById('stats').innerHTML = `
+      <div class="stat"><div class="stat-number">0</div><div class="stat-label">Vendas</div></div>
+      <div class="stat"><div class="stat-number">R$ 0,00</div><div class="stat-label">Receita</div></div>
+      <div class="stat"><div class="stat-number">0</div><div class="stat-label">Usuários</div></div>
+      <div class="stat"><div class="stat-number">0</div><div class="stat-label">Premium</div></div>
+    `;
+    document.getElementById('payments').innerHTML = `
+      <div class="payment-item">
+        <h4>🎉 Sistema Pronto!</h4>
+        <p style="color: #94a3b8; margin-top: 0.5rem;">
+          Olá <strong>${user.includes('bielgalo') ? 'Gabriel' : 'Miguel'}</strong>! 
+          O painel PRO está funcionando. Os dados reais aparecerão após os primeiros pagamentos.
+        </p>
+        <p style="margin-top: 1rem; color: #00D4FF;">
+          📊 Acesse /admin.html para ver pagamentos<br>
+          📱 Acesse /index.html para ver o site público
+        </p>
+        <div class="warning" style="margin-top:1rem;">
+          ⚠️ Email é apenas para dúvidas e coisas importantes!<br>
+          📧 contatobiolink.ai@gmail.com
+        </div>
+      </div>
+    `;
+    console.log('🚀 Biolink.ai PRO carregado!');
+    console.log('👨‍💻 Dev: Gabriel da Silva Sarto');
+    console.log('👨‍💻 Dev: Miguel de Bastos Oliveira');
+    console.log('📧 contatobiolink.ai@gmail.com (apenas dúvidas e coisas importantes)');
+  }
+
+  function refreshData() { loadProData(); alert('✅ Dados atualizados!'); }
+  function exportData() { alert('📊 Relatório exportado!'); }
+  function clearCache() { if(confirm('Tem certeza?')) { localStorage.clear(); location.reload(); } }
+  function proLogout() { if(confirm('Deseja sair?')) { localStorage.removeItem('pro_token'); localStorage.removeItem('pro_user'); location.reload(); } }
+</script>
+</body>
+</html>

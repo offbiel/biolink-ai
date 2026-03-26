@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Crie seu link-in-bio profissional com IA. 5 usos grátis!">
+  <meta name="author" content="Gabriel da Silva Sarto & Miguel de Bastos Oliveira">
+  
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#6A57FF">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  
+  <title>Biolink.ai - Link-in-Bio com IA | 5 Usos Grátis</title>
+  
+  <style>
+    :root {
+      --purple: #6A57FF; --cyan: #00D4FF; --black: #0A0A0F; --black-light: #11111A;
+      --white: #FFFFFF; --gold: #F59E0B; --green: #22c55e; --red: #ef4444; --gray: #94a3b8;
+      --gradient-primary: linear-gradient(135deg, #6A57FF 0%, #00D4FF 100%);
+      --gradient-gold: linear-gradient(135deg, #F59E0B 0%, #EA580C 100%);
+      --shadow-glow: 0 0 40px rgba(106, 87, 255, 0.5);
+      --radius-md: 16px; --radius-lg: 24px; --radius-circle: 50%;
+      --transition: all 0.3s ease;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); line-height: 1.6; min-height: 100vh; }
+    h1,h2,h3,h4 { font-family: 'Poppins', sans-serif; font-weight: 700; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    button { cursor: pointer; font-family: inherit; border: none; }
+    img { max-width: 100%; display: block; }
+    
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .justify-between { justify-content: space-between; }
+    .gap-4 { gap: 1rem; }
+    .text-center { text-align: center; }
+    .text-gradient { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hidden { display: none !important; }
+    .section { padding: 5rem 0; }
+    
+    /* Header */
+    header { padding: 1rem 0; background: rgba(10,10,15,0.95); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .logo { font-size: 1.5rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; align-items: center; gap: 0.5rem; }
+    .logo-icon { width: 40px; height: 40px; background: var(--gradient-primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; }
+    nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .nav-btn { padding: 0.5rem 1rem; border-radius: 8px; font-weight: 500; color: var(--gray); }
+    .nav-btn:hover { color: var(--cyan); }
+    
+    /* Buttons */
+    .btn { padding: 1rem 2rem; border-radius: var(--radius-md); font-weight: 700; font-family: 'Poppins'; transition: var(--transition); display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; }
+    .btn-primary { background: var(--gradient-primary); color: white; box-shadow: var(--shadow-glow); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 50px rgba(106,87,255,0.6); }
+    .btn-gold { background: var(--gradient-gold); color: white; box-shadow: 0 0 40px rgba(245,158,11,0.5); }
+    .btn-outline { background: transparent; border: 2px solid var(--purple); color: var(--purple); }
+    .btn-lg { padding: 1.25rem 2.5rem; font-size: 1.1rem; }
+    .btn-block { width: 100%; }
+    
+    /* Hero */
+    .hero { padding: 6rem 0; background: linear-gradient(180deg, var(--black), var(--black-light)); }
+    .hero-content { text-align: center; max-width: 900px; margin: 0 auto; }
+    .hero-badge { display: inline-flex; background: rgba(106,87,255,0.2); border: 1px solid rgba(106,87,255,0.5); padding: 0.5rem 1rem; border-radius: 50px; font-weight: 600; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 1.5rem; }
+    .hero p { font-size: 1.25rem; color: var(--gray); margin-bottom: 2rem; }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    
+    /* Features & Pricing */
+    .features-grid, .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .feature-card, .pricing-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 2rem; transition: var(--transition); }
+    .feature-card:hover, .pricing-card:hover { transform: translateY(-5px); border-color: var(--purple); }
+    .pricing-card.featured { border-color: var(--gold); box-shadow: 0 0 40px rgba(245,158,11,0.5); }
+    
+    /* Chat */
+    .chat-float-btn { position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; border-radius: 50%; background: var(--gradient-primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: var(--shadow-glow); z-index: 1000; animation: bounce 2s infinite; }
+    @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    
+    .chat-modal { position: fixed; bottom: 100px; right: 2rem; width: 450px; max-width: calc(100vw - 4rem); height: 600px; background: var(--black-light); border-radius: var(--radius-lg); border: 1px solid rgba(255,255,255,0.1); z-index: 1000; display: none; flex-direction: column; overflow: hidden; }
+    .chat-modal.active { display: flex; }
+    
+    .chat-header { padding: 1.25rem; background: rgba(106,87,255,0.2); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .chat-messages { flex: 1; padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+    
+    .message { max-width: 85%; padding: 1rem 1.25rem; border-radius: var(--radius-md); line-height: 1.5; }
+    .message.user { align-self: flex-end; background: var(--purple); }
+    .message.ai { align-self: flex-start; background: rgba(255,255,255,0.1); }
+    
+    .message-suggestions { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
+    .message-suggestion { background: rgba(0,212,255,0.15); border: 1px solid var(--cyan); padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.9rem; cursor: pointer; transition: var(--transition); }
+    .message-suggestion:hover { background: rgba(0,212,255,0.25); }
+    
+    .chat-input { padding: 1.25rem; border-top: 1px solid rgba(255,255,255,0.1); display: flex; gap: 0.75rem; align-items: center; }
+    .chat-input input { flex: 1; padding: 0.875rem 1.25rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; }
+    .chat-input button { padding: 0.875rem 1.5rem; border-radius: 50px; background: var(--gradient-primary); color: white; }
+    .chat-attach-btn { background: transparent; border: none; color: var(--gray); cursor: pointer; font-size: 1.2rem; }
+    
+    .typing-indicator { display: flex; gap: 5px; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); width: fit-content; }
+    .typing-indicator span { width: 8px; height: 8px; background: var(--gray); border-radius: 50%; animation: typing 1.4s infinite; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%,80%,100% { transform: scale(0); } 40% { transform: scale(1); } }
+    
+    /* Footer */
+    footer { padding: 3rem 0; background: var(--black-light); border-top: 1px solid rgba(255,255,255,0.1); }
+    .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+    .footer-section h4 { margin-bottom: 1rem; }
+    .footer-section a { display: block; padding: 0.25rem 0; color: var(--gray); }
+    .footer-section a:hover { color: var(--cyan); }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1); color: var(--gray); }
+    .social-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .social-link { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(255,255,255,0.05); border-radius: 50px; }
+    .social-link:hover { background: rgba(106,87,255,0.2); }
+    
+    /* Tutorial */
+    .tutorial-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+    .tutorial-step { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 2rem; text-align: center; }
+    .step-number { width: 50px; height: 50px; background: var(--gradient-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.5rem; margin: 0 auto 1rem; }
+    
+    /* Pricing */
+    .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gradient-gold); padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.85rem; font-weight: 700; }
+    .pricing-header { text-align: center; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .pricing-price { display: flex; align-items: baseline; justify-content: center; gap: 0.5rem; margin: 1rem 0; }
+    .pricing-old { color: var(--gray); text-decoration: line-through; }
+    .pricing-current { font-size: 3rem; font-weight: 800; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .pricing-card.featured .pricing-current { background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .pricing-features { list-style: none; margin: 1.5rem 0; }
+    .pricing-features li { padding: 0.75rem 0; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .check-icon { color: var(--green); font-weight: bold; }
+    .payment-info { background: rgba(106,87,255,0.1); border: 1px solid rgba(106,87,255,0.3); padding: 1rem; border-radius: 8px; margin-top: 1rem; font-size: 0.9rem; }
+    .payment-info strong { color: var(--cyan); }
+    .payment-info .warning { background: rgba(245,158,11,0.2); color: var(--gold); padding: 0.5rem; border-radius: 4px; margin-top: 0.5rem; font-size: 0.85rem; }
+    .pricing-guarantee { text-align: center; padding: 1rem; background: rgba(34,197,94,0.1); border-radius: 8px; margin-top: 1.5rem; color: var(--green); }
+    
+    /* FAQ */
+    .faq-item { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 1.5rem; margin-bottom: 1rem; }
+    .faq-item h3 { color: var(--cyan); margin-bottom: 0.5rem; }
+    .faq-item p { color: var(--gray); }
+    
+    /* Contact */
+    .contact-grid { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .contact-card { background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 16px; min-width: 250px; text-align: center; }
+    
+    /* Dashboard */
+    .dashboard { padding: 3rem 0; }
+    .form-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; color: var(--gray); }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.875rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: white; }
+    .link-item { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .link-item input { flex: 1; }
+    .btn-remove-link { background: rgba(239,68,68,0.2); color: var(--red); width: 32px; border-radius: 8px; }
+    .btn-add-link { background: transparent; border: 1px dashed var(--cyan); color: var(--cyan); padding: 0.5rem 1rem; border-radius: 8px; margin: 0.5rem 0; }
+    
+    /* Modal */
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 2000; display: none; align-items: center; justify-content: center; }
+    .modal-overlay.active { display: flex; }
+    .modal { background: var(--black-light); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-lg); padding: 2rem; width: 100%; max-width: 500px; position: relative; max-height: 90vh; overflow-y: auto; }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--gray); font-size: 1.5rem; cursor: pointer; }
+    .social-login { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0; }
+    .social-btn { display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.875rem; border-radius: 8px; font-weight: 600; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.2); }
+    .divider { display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0; color: var(--gray); }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.2); }
+    
+    /* Toast */
+    .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--black-light); padding: 1rem 1.5rem; border-radius: var(--radius-md); z-index: 10000; transition: var(--transition); border: 1px solid rgba(255,255,255,0.1); }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast.success { border-left: 4px solid var(--green); }
+    .toast.error { border-left: 4px solid var(--red); }
+    .toast.warning { border-left: 4px solid var(--gold); }
+    
+    /* Review System */
+    .star { transition: var(--transition); }
+    .star:hover, .star.active { color: var(--gold); transform: scale(1.2); }
+    .star.filled { color: var(--gold); }
+    @keyframes starPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+    .star.animate { animation: starPulse 0.3s ease; }
+    .review-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-md); padding: 1.5rem; transition: var(--transition); }
+    .review-card:hover { border-color: var(--purple); transform: translateY(-2px); }
+    .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem; }
+    .review-stars { color: var(--gold); font-size: 1.25rem; }
+    .review-date { color: var(--gray); font-size: 0.85rem; }
+    .review-text { color: var(--gray); line-height: 1.6; }
+    .review-anonymous { color: var(--cyan); font-weight: 600; }
+    
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.5rem; }
+      .chat-modal { width: calc(100vw - 2rem); right: 1rem; bottom: 80px; height: calc(100vh - 100px); }
+      nav { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="container flex justify-between items-center">
+    <a href="#" class="logo"><span class="logo-icon">B</span> Biolink.ai</a>
+    <nav>
+      <a href="#tutorial" class="nav-btn">Tutorial</a>
+      <a href="#pricing" class="nav-btn">Preços</a>
+      <a href="#faq" class="nav-btn">FAQ</a>
+      <a href="#contact" class="nav-btn">Contato</a>
+      <button class="btn btn-outline" onclick="openLoginModal()" id="btn-login">Entrar</button>
+      <button class="btn btn-primary" onclick="openLoginModal()" id="btn-start">Começar Grátis</button>
+      <button class="btn btn-gold hidden" onclick="openDashboard()" id="btn-dashboard">Dashboard</button>
+      <button class="btn btn-outline hidden" onclick="logout()" id="btn-logout">Sair</button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-badge">🎁 5 USOS GRÁTIS + IA INTEGRADA</div>
+    <h1 class="text-gradient">Seu Link-in-Bio Profissional<br/>com Inteligência Artificial</h1>
+    <p>Crie uma página em minutos. Links ilimitados, analytics e IA que converte.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary btn-lg" onclick="startFreeTrial()">🚀 Começar Grátis</button>
+      <button class="btn btn-outline btn-lg" onclick="scrollToPricing()">💰 Ver Planos</button>
+    </div>
+  </div>
+</section>
+
+<!-- TUTORIAL -->
+<section class="section tutorial" id="tutorial" style="background:var(--black);">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="text-gradient">📚 Como Criar em 4 Passos</h2>
+    </div>
+    <div class="tutorial-steps">
+      <div class="tutorial-step">
+        <div class="step-number">1</div>
+        <h3>🎯 Crie Sua Conta</h3>
+        <p style="color:var(--gray)">Faça login e ganhe 5 usos grátis!</p>
+      </div>
+      <div class="tutorial-step">
+        <div class="step-number">2</div>
+        <h3>🎨 Personalize</h3>
+        <p style="color:var(--gray)">Escolha tema, cores e bio!</p>
+      </div>
+      <div class="tutorial-step">
+        <div class="step-number">3</div>
+        <h3>🔗 Adicione Links</h3>
+        <p style="color:var(--gray)">Instagram, WhatsApp, YouTube!</p>
+      </div>
+      <div class="tutorial-step">
+        <div class="step-number">4</div>
+        <h3>📱 Compartilhe</h3>
+        <p style="color:var(--gray)">Copie e coloque na bio!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features" id="features" style="background:var(--black-light);">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="text-gradient">Por Que Escolher?</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🤖</div>
+        <h3>IA Integrada</h3>
+        <p style="color:var(--gray)">Chat 24/7 que aumenta conversões!</p>
+      </div>
+      <div class="feature-card">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">📊</div>
+        <h3>Analytics</h3>
+        <p style="color:var(--gray)">Views e clicks em tempo real!</p>
+      </div>
+      <div class="feature-card">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">👥</div>
+        <h3>Afiliados</h3>
+        <p style="color:var(--gray)">Ganhe R$ 5-10 por indicação!</p>
+      </div>
+      <div class="feature-card">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">🛡️</div>
+        <h3>Garantia</h3>
+        <p style="color:var(--gray)">7 dias ou dinheiro de volta!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing" id="pricing" style="background:var(--black);">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="text-gradient">Planos</h2>
+      <p style="color:var(--gray)">5 usos grátis • Garantia 7 dias • Aprovação automática</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-header">
+          <h3>Mensal</h3>
+          <div class="pricing-price">
+            <span class="pricing-old">R$ 49,99</span>
+            <span class="pricing-current">R$ 19,90</span>
+          </div>
+          <span style="color:var(--gray)">/mês</span>
+          <div style="background:rgba(245,158,11,0.2);color:var(--gold);padding:0.25rem 0.75rem;border-radius:20px;font-size:0.85rem;font-weight:700;display:inline-block;margin-top:0.5rem;">60% OFF 🔥</div>
+          <div style="background:rgba(0,212,255,0.1);color:var(--cyan);padding:0.5rem;border-radius:8px;margin:1rem 0;font-size:0.9rem;">💳 2x R$ 9,95</div>
+        </div>
+        <ul class="pricing-features">
+          <li><span class="check-icon">✓</span> IA GPT-4</li>
+          <li><span class="check-icon">✓</span> Links Ilimitados</li>
+          <li><span class="check-icon">✓</span> Analytics</li>
+          <li><span class="check-icon">✓</span> Suporte</li>
+        </ul>
+        <a href="https://mpago.li/1eHgRE9" target="_blank" class="btn btn-primary btn-block" onclick="trackPayment('mensal')">💳 Assinar</a>
+        <div class="payment-info">
+          <strong>⚡ Aprovação Automática!</strong><br>
+          Após pagar, envie o comprovante <strong>NO CHAT</strong>!<br>
+          💬 Clique no botão 💬 no canto da tela<br>
+          <div class="warning">
+            ⚠️ <strong>Email é apenas para dúvidas e coisas importantes!</strong><br>
+            📧 contatobiolink.ai@gmail.com
+          </div>
+        </div>
+        <div class="pricing-guarantee">🛡️ 7 dias garantia</div>
+      </div>
+      
+      <div class="pricing-card featured">
+        <div class="pricing-badge">⭐ MAIS POPULAR</div>
+        <div class="pricing-header">
+          <h3>Anual</h3>
+          <div class="pricing-price">
+            <span class="pricing-old">R$ 139,99</span>
+            <span class="pricing-current">R$ 99,99</span>
+          </div>
+          <span style="color:var(--gray)">/ano</span>
+          <div style="background:rgba(245,158,11,0.2);color:var(--gold);padding:0.25rem 0.75rem;border-radius:20px;font-size:0.85rem;font-weight:700;display:inline-block;margin-top:0.5rem;">29% OFF + 2 meses 🎁</div>
+          <div style="background:rgba(0,212,255,0.1);color:var(--cyan);padding:0.5rem;border-radius:8px;margin:1rem 0;font-size:0.9rem;">💳 12x R$ 8,33</div>
+        </div>
+        <ul class="pricing-features">
+          <li><span class="check-icon">✓</span> IA GPT-5.3</li>
+          <li><span class="check-icon">✓</span> Links Ilimitados</li>
+          <li><span class="check-icon">✓</span> Analytics VIP</li>
+          <li><span class="check-icon">✓</span> Afiliados</li>
+          <li><span class="check-icon">✓</span> Backup</li>
+        </ul>
+        <a href="https://mpago.li/1qnbxeL" target="_blank" class="btn btn-gold btn-block" onclick="trackPayment('anual')">🌟 Assinar</a>
+        <div class="payment-info">
+          <strong>⚡ Aprovação Automática!</strong><br>
+          Após pagar, envie o comprovante <strong>NO CHAT</strong>!<br>
+          💬 Clique no botão 💬 no canto da tela<br>
+          <div class="warning">
+            ⚠️ <strong>Email é apenas para dúvidas e coisas importantes!</strong><br>
+            📧 contatobiolink.ai@gmail.com
+          </div>
+        </div>
+        <div class="pricing-guarantee">🛡️ 7 dias garantia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" style="background:var(--black-light);">
+  <div class="container">
+    <div class="section-header text-center">
+      <h2 class="text-gradient">❓ FAQ</h2>
+    </div>
+    <div style="max-width:800px;margin:0 auto;">
+      <div class="faq-item">
+        <h3>🎯 O que é?</h3>
+        <p>Plataforma de link-in-bio com IA. Crie uma página com todos seus links!</p>
+      </div>
+      <div class="faq-item">
+        <h3>💰 Planos?</h3>
+        <p>🎁 Grátis: 5 usos | 🔹 Mensal: R$ 19,90 | 🌟 Anual: R$ 99,99</p>
+      </div>
+      <div class="faq-item">
+        <h3>📤 Como envio o comprovante?</h3>
+        <p>
+          <strong>1.</strong> Após pagar, clique no botão 💬 (chat) no canto da tela<br>
+          <strong>2.</strong> Clique no 📎 (anexo)<br>
+          <strong>3.</strong> Envie a imagem do comprovante<br>
+          <strong>4.</strong> Aprovação automática na hora! ⚡
+        </p>
+        <div class="warning" style="margin-top:0.5rem;">
+          ⚠️ <strong>Email é apenas para dúvidas e coisas importantes!</strong><br>
+          ✅ Comprovante: envie NO CHAT 💬<br>
+          📧 contatobiolink.ai@gmail.com
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3>👥 Afiliados?</h3>
+        <p>Ganhe R$ 5-10 por indicação! Código único no dashboard.</p>
+      </div>
+      <div class="faq-item">
+        <h3>🛡️ Garantia?</h3>
+        <p>7 dias! Email para contatobiolink.ai@gmail.com e receba 100% de volta!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="background:var(--black);">
+  <div class="container text-center">
+    <h2 class="text-gradient" style="margin-bottom:2rem;">📞 Contato</h2>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div style="font-size:2rem;margin-bottom:1rem;">📧</div>
+        <h4>Email</h4>
+        <p style="color:var(--cyan)">contatobiolink.ai@gmail.com</p>
+        <p style="color:var(--cyan);font-size:0.9rem">suporte@biolink.ai</p>
+        <div class="warning" style="margin-top:0.5rem;">
+          ⚠️ Email é apenas para DÚVIDAS e COISAS IMPORTANTES!<br>
+          ✅ Comprovante: envie NO CHAT 💬
+        </div>
+      </div>
+      <div class="contact-card">
+        <div style="font-size:2rem;margin-bottom:1rem;">📸</div>
+        <h4>Instagram</h4>
+        <p style="color:var(--cyan)">@biolink.ai</p>
+        <p style="color:var(--cyan);font-size:0.9rem">@off_bielzinkkj</p>
+        <p style="color:var(--cyan);font-size:0.9rem">@dnn.bastos</p>
+        <p style="color:var(--cyan);font-size:0.9rem">@dnbergii</p>
+      </div>
+      <div class="contact-card">
+        <div style="font-size:2rem;margin-bottom:1rem;">💬</div>
+        <h4>Chat</h4>
+        <p style="color:var(--gray)">Disponível 24/7</p>
+        <p style="color:var(--green)">● Online</p>
+        <p style="color:var(--gray);font-size:0.85rem;margin-top:0.5rem;">✅ Envie comprovante aqui!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section dashboard hidden" id="dashboard">
+  <div class="container">
+    <h2>Dashboard</h2>
+    <div class="form-card">
+      <h3 style="margin-bottom:1rem">Criar Página</h3>
+      <div class="form-group"><label>Nome</label><input type="text" id="page-name" placeholder="Ex: João"></div>
+      <div class="form-group"><label>Bio</label><textarea id="page-bio" rows="3" placeholder="Sobre você..."></textarea></div>
+      <div class="form-group"><label>Tema</label><select id="page-theme"><option value="dark">🌙 Escuro</option><option value="light">☀️ Claro</option></select></div>
+      <div class="form-group"><label>Cor</label><input type="color" id="page-accent" value="#6A57FF" style="height:50px;"></div>
+      <div id="links-container"><div class="link-item"><input type="text" placeholder="Título"><input type="url" placeholder="https://..."><button class="btn-remove-link" onclick="this.parentElement.remove()">×</button></div></div>
+      <button class="btn-add-link" onclick="addLinkField()">+ Link</button>
+      <button class="btn btn-primary btn-block" onclick="savePage()" style="margin-top:1rem;">💾 Salvar</button>
+    </div>
+    <div class="form-card">
+      <h3>👥 Afiliados</h3>
+      <p style="color:var(--gray)">Código: <strong id="affiliate-code" style="color:var(--cyan)">Carregando...</strong></p>
+      <p style="color:var(--gray)">Ganhos: <strong id="affiliate-earnings" style="color:var(--green)">R$ 0,00</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="login-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeLoginModal()">&times;</button>
+    <h3 class="text-center">Conta Grátis</h3>
+    <p class="text-center" style="color:var(--gray);margin:1rem 0;">5 usos • Sem cartão • 7 dias garantia</p>
+    <div class="social-login">
+      <button class="social-btn" onclick="socialLogin('google')">🔴 Google</button>
+      <button class="social-btn" onclick="socialLogin('facebook')">🔵 Facebook</button>
+      <button class="social-btn" onclick="socialLogin('instagram')">📸 Instagram</button>
+      <button class="social-btn" onclick="socialLogin('email')">📧 Email</button>
+    </div>
+    <div class="divider">ou cadastre-se</div>
+    <form onsubmit="handleEmailSignup(event)">
+      <div class="form-group"><label>Email</label><input type="email" id="signup-email" required></div>
+      <div class="form-group"><label>Senha</label><input type="password" id="signup-password" minlength="6" required></div>
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAANfGzFDzCqPuOYd" data-theme="dark"></div>
+      <button type="submit" class="btn btn-primary btn-block">✨ Criar Conta</button>
+    </form>
+    <div class="warning" style="margin-top:1rem;">
+      ⚠️ Email é apenas para dúvidas e coisas importantes!<br>
+      📧 contatobiolink.ai@gmail.com
+    </div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div class="chat-modal" id="chat-modal">
+  <div class="chat-header">
+    <h3>💬 Biolink.ai Support</h3>
+    <button class="modal-close" onclick="toggleChat()">&times;</button>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="chat-input">
+    <button class="chat-attach-btn" onclick="document.getElementById('chat-file').click()">📎</button>
+    <input type="file" id="chat-file" accept="image/*,.pdf" style="display:none" onchange="handleFileSelect(event)">
+    <input type="text" id="chat-input" placeholder="Digite..." onkeypress="handleChatKeypress(event)">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+</div>
+
+<!-- CHAT FLOAT -->
+<button class="chat-float-btn" onclick="toggleChat()">💬</button>
+
+<!-- REVIEW SYSTEM -->
+<section id="avaliacao" style="padding:3rem 0;border-top:1px solid rgba(255,255,255,0.1);margin-top:2rem;">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:2rem;">
+      <h2 class="text-gradient" style="font-size:2rem;margin-bottom:0.5rem;">⭐ Avalie o Biolink.ai</h2>
+      <p style="color:var(--gray);">Sua opinião é muito importante para nós!</p>
+    </div>
+    <div style="max-width:600px;margin:0 auto;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-lg);padding:2rem;">
+      <div class="text-center" style="margin-bottom:1.5rem;">
+        <p style="color:var(--gray);margin-bottom:1rem;">Como você avalia sua experiência?</p>
+        <div id="star-rating" style="display:flex;justify-content:center;gap:0.5rem;">
+          <span class="star" data-value="1" style="font-size:2.5rem;cursor:pointer;color:var(--gray);transition:var(--transition);">☆</span>
+          <span class="star" data-value="2" style="font-size:2.5rem;cursor:pointer;color:var(--gray);transition:var(--transition);">☆</span>
+          <span class="star" data-value="3" style="font-size:2.5rem;cursor:pointer;color:var(--gray);transition:var(--transition);">☆</span>
+          <span class="star" data-value="4" style="font-size:2.5rem;cursor:pointer;color:var(--gray);transition:var(--transition);">☆</span>
+          <span class="star" data-value="5" style="font-size:2.5rem;cursor:pointer;color:var(--gray);transition:var(--transition);">☆</span>
+        </div>
+        <p id="rating-text" style="color:var(--gray);margin-top:1rem;font-size:0.9rem;"></p>
+      </div>
+      <div class="form-group" style="margin-bottom:1.5rem;">
+        <label style="display:block;margin-bottom:0.5rem;color:var(--gray);">Conte-nos mais sobre sua experiência:</label>
+        <textarea id="feedback-text" rows="4" placeholder="O que você achou do Biolink.ai? O que podemos melhorar?" style="width:100%;padding:1rem;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;resize:none;"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:1.5rem;">
+        <label style="display:block;margin-bottom:0.5rem;color:var(--gray);">Seu email (opcional):</label>
+        <input type="email" id="feedback-email" placeholder="seu@email.com" style="width:100%;padding:0.875rem;border-radius:8px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.05);color:white;">
+      </div>
+      <button onclick="submitReview()" class="btn btn-primary btn-block" style="width:100%;">⭐ Enviar Avaliação</button>
+      <div id="review-success" class="hidden" style="text-align:center;padding:1.5rem;background:rgba(34,197,94,0.1);border:1px solid var(--green);border-radius:8px;margin-top:1rem;">
+        <p style="color:var(--green);font-weight:700;">✅ Obrigado pela sua avaliação!</p>
+        <p style="color:var(--gray);font-size:0.9rem;margin-top:0.5rem;">Sua opinião nos ajuda a melhorar! 🚀</p>
+      </div>
+    </div>
+    <div style="max-width:800px;margin:3rem auto 0;" id="recent-reviews">
+      <h3 class="text-center" style="color:var(--cyan);margin-bottom:1.5rem;">💬 Avaliações Recentes</h3>
+      <div id="reviews-list" style="display:grid;gap:1rem;"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Biolink.ai</h4>
+        <p style="color:var(--gray)">Transforme sua bio em vendas!</p>
+      </div>
+      <div class="footer-section">
+        <h4>Produto</h4>
+        <a href="#features">Recursos</a>
+        <a href="#pricing">Preços</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-section">
+        <h4>Contato</h4>
+        <a href="mailto:contatobiolink.ai@gmail.com">📧 contatobiolink.ai@gmail.com</a>
+        <a href="mailto:suporte@biolink.ai">📧 suporte@biolink.ai</a>
+        <div class="warning" style="margin-top:0.5rem;font-size:0.85rem;">
+          ⚠️ Email é apenas para dúvidas e coisas importantes!<br>
+          ✅ Comprovante: envie NO CHAT
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Siga-nos</h4>
+        <div class="social-links" style="flex-direction:column;align-items:flex-start;">
+          <a href="https://www.instagram.com/biolink.ai/" target="_blank" class="social-link">📸 @biolink.ai</a>
+          <a href="https://www.instagram.com/off_bielzinkkj/" target="_blank" class="social-link">👨‍💻 @off_bielzinkkj</a>
+          <a href="https://www.instagram.com/dnn.bastos/" target="_blank" class="social-link">👨‍💻 @dnn.bastos</a>
+          <a href="https://www.instagram.com/dnbergii/" target="_blank" class="social-link">👨‍💻 @dnbergii</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Biolink.ai - Todos os direitos reservados</p>
+      <p style="margin-top:0.5rem;">Feito com ❤️ por <strong>Gabriel da Silva Sarto</strong> & <strong>Miguel de Bastos Oliveira</strong></p>
+      <p style="margin-top:0.25rem;font-size:0.85rem;">Atendimento: <strong>Ana Paula da Silva Sarto</strong></p>
+      <p style="margin-top:0.5rem;font-size:0.85rem;">📧 contatobiolink.ai@gmail.com | suporte@biolink.ai</p>
+      <div class="warning" style="display:inline-block;margin-top:0.5rem;">
+        ⚠️ Email é apenas para dúvidas e coisas importantes!<br>
+        ✅ Comprovante: envie NO CHAT 💬
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div id="toast" class="toast"><span id="toast-message">Ação realizada!</span></div>
+
+<!-- JAVASCRIPT -->
+<script>
+// ============================================
+// CONFIGURAÇÃO DA API
+// ============================================
+const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:3000/api' : '/api';
+let currentUser = null;
+let userToken = localStorage.getItem('user_token');
+let captchaVerified = false;
+let chatInitialized = false;
+let selectedRating = 0;
+
+// ============================================
+// INIT
+// ============================================
+document.addEventListener('DOMContentLoaded', async () => {
+  const savedUser = localStorage.getItem('biolink_user');
+  if (savedUser) {
+    currentUser = JSON.parse(savedUser);
+    updateAuthUI();
+    if (userToken) await fetchUserProfile();
+  }
+  initStarRating();
+  loadReviews();
+  console.log('\n============================================');
+  console.log('🚀 BIOLINK.AI CARREGADO!');
+  console.log('============================================');
+  console.log('👨‍💻 Devs: Gabriel & Miguel');
+  console.log('👩 Atendimento: Ana Paula');
+  console.log('📧 contatobiolink.ai@gmail.com (apenas dúvidas)');
+  console.log('💬 Comprovante: enviar NO CHAT!');
+  console.log('📸 @biolink.ai | @off_bielzinkkj | @dnn.bastos | @dnbergii');
+  console.log('============================================\n');
+});
+
+// ============================================
+// USER PROFILE
+// ============================================
+async function fetchUserProfile() {
+  try {
+    const response = await fetch(`${API_BASE}/auth/me`, { headers: { 'Authorization': `Bearer ${userToken}` } });
+    if (response.ok) {
+      const data = await response.json();
+      currentUser = { ...currentUser, ...data.user };
+      localStorage.setItem('biolink_user', JSON.stringify(currentUser));
+      updateAuthUI();
+    }
+  } catch (err) { console.error('Erro ao buscar perfil:', err); }
+}
+
+// ============================================
+// AUTH
+// ============================================
+function openLoginModal() { document.getElementById('login-modal').classList.add('active'); }
+function closeLoginModal() { document.getElementById('login-modal').classList.remove('active'); }
+function startFreeTrial() { if (currentUser) { openDashboard(); } else { openLoginModal(); } }
+function scrollToPricing() { document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' }); }
+
+async function socialLogin(provider) {
+  showToast(`🔐 Redirecionando...`, 'warning');
+  setTimeout(() => {
+    currentUser = { email: `user@${provider}.com`, name: 'Usuário', is_premium: false, free_uses: 5 };
+    localStorage.setItem('biolink_user', JSON.stringify(currentUser));
+    updateAuthUI();
+    closeLoginModal();
+    showToast('✨ Login realizado!', 'success');
+  }, 2000);
+}
+
+async function handleEmailSignup(e) {
+  e.preventDefault();
+  const email = document.getElementById('signup-email').value;
+  const password = document.getElementById('signup-password').value;
+  try {
+    const response = await fetch(`${API_BASE}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await response.json();
+    if (response.ok) {
+      currentUser = data.user;
+      userToken = data.token;
+      localStorage.setItem('biolink_user', JSON.stringify(currentUser));
+      localStorage.setItem('user_token', userToken);
+      updateAuthUI();
+      closeLoginModal();
+      showToast('✨ Conta criada! 5 usos grátis!', 'success');
+    } else { showToast(`❌ ${data.error}`, 'error'); }
+  } catch (err) {
+    currentUser = { email, name: 'Usuário', is_premium: false, free_uses: 5 };
+    localStorage.setItem('biolink_user', JSON.stringify(currentUser));
+    updateAuthUI();
+    closeLoginModal();
+    showToast('✨ Conta criada! (modo offline)', 'success');
+  }
+}
+
+function logout() {
+  currentUser = null; userToken = null;
+  localStorage.removeItem('biolink_user');
+  localStorage.removeItem('user_token');
+  updateAuthUI();
+  showToast('👋 Você saiu!', 'success');
+}
+
+function updateAuthUI() {
+  document.getElementById('btn-login').classList.toggle('hidden', !!currentUser);
+  document.getElementById('btn-start').classList.toggle('hidden', !!currentUser);
+  document.getElementById('btn-dashboard').classList.toggle('hidden', !currentUser);
+  document.getElementById('btn-logout').classList.toggle('hidden', !currentUser);
+}
+
+function openDashboard() {
+  document.querySelectorAll('.section, .hero').forEach(el => el.classList.add('hidden'));
+  document.getElementById('dashboard').classList.remove('hidden');
+  if (currentUser) {
+    document.getElementById('affiliate-code').textContent = currentUser.affiliate_code || 'AFF' + Math.random().toString(36).substring(2, 8).toUpperCase();
+    document.getElementById('affiliate-earnings').textContent = `R$ ${(currentUser.affiliate_earnings || 0).toFixed(2)}`;
+  }
+}
+
+function addLinkField() {
+  const container = document.getElementById('links-container');
+  const div = document.createElement('div');
+  div.className = 'link-item';
+  div.innerHTML = `<input type="text" placeholder="Título"><input type="url" placeholder="https://..."><button class="btn-remove-link" onclick="this.parentElement.remove()">×</button>`;
+  container.appendChild(div);
+}
+
+async function savePage() {
+  if (!currentUser) { showToast('⚠️ Faça login', 'error'); return; }
+  const name = document.getElementById('page-name').value.trim();
+  const bio = document.getElementById('page-bio').value.trim();
+  if (!name || !bio) { showToast('⚠️ Preencha nome e bio', 'error'); return; }
+  try {
+    const response = await fetch(`${API_BASE}/pages`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${userToken}` },
+      body: JSON.stringify({ name, bio, theme: 'dark', accent_color: '#6A57FF', links: [] })
+    });
+    if (response.ok) {
+      showToast('✅ Página salva!', 'success');
+      if (!currentUser.is_premium && currentUser.free_uses > 0) {
+        currentUser.free_uses--;
+        localStorage.setItem('biolink_user', JSON.stringify(currentUser));
+      }
+    } else { showToast('❌ Erro ao salvar', 'error'); }
+  } catch (err) { showToast('✅ Página salva! (modo offline)', 'success'); }
+}
+
+// ============================================
+// PAYMENT
+// ============================================
+function trackPayment(plan) {
+  console.log(`💰 Pagamento iniciado: ${plan}`);
+  showToast('✅ Redirecionando para pagamento...', 'success');
+}
+
+// ============================================
+// CHAT
+// ============================================
+function toggleChat() {
+  const modal = document.getElementById('chat-modal');
+  modal.classList.toggle('active');
+  if (modal.classList.contains('active') && !chatInitialized) { initChat(); chatInitialized = true; }
+}
+
+function initChat() {
+  const messages = document.getElementById('chat-messages');
+  messages.innerHTML = '';
+  setTimeout(() => {
+    addMessage(`👋 Olá! Bem-vindo ao suporte Biolink.ai!\n\n💬 <strong>Este é o CHAT oficial!</strong>\n\n<strong>Para enviar comprovante:</strong>\n1. Após pagar, clique no 📎 (anexo) aqui embaixo\n2. Selecione a imagem do comprovante\n3. Envie aqui neste chat!\n\n⚡ <strong>Aprovação AUTOMÁTICA!</strong>\nSeu premium é ativado na hora!\n\n⚠️ <strong>IMPORTANTE:</strong>\nEmail é apenas para dúvidas e coisas importantes!\nEnvie o comprovante AQUI NO CHAT, não por email!\n\n📧 <strong>Email (apenas dúvidas):</strong>\ncontatobiolink.ai@gmail.com\n\n<strong>Como posso te ajudar?</strong>`, 'ai');
+    setTimeout(() => {
+      addSuggestions(['💰 Quais são os planos?', '📤 Como enviar comprovante?', '👥 Como funciona afiliados?', '📚 Como criar página?', '🛡️ Como funciona garantia?']);
+    }, 500);
+  }, 300);
+}
+
+function addSuggestions(suggestions) {
+  const messages = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'message-suggestions';
+  div.id = 'chat-suggestions';
+  suggestions.forEach(text => {
+    const btn = document.createElement('div');
+    btn.className = 'message-suggestion';
+    btn.textContent = text;
+    btn.onclick = () => sendSuggestion(text);
+    div.appendChild(btn);
+  });
+  messages.appendChild(div);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function removeSuggestions() {
+  const existing = document.getElementById('chat-suggestions');
+  if (existing) existing.remove();
+}
+
+function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const message = input.value.trim();
+  if (!message) return;
+  removeSuggestions();
+  addMessage(message, 'user');
+  input.value = '';
+  showTyping();
+  setTimeout(() => { hideTyping(); addMessage(generateResponse(message), 'ai'); }, 800 + Math.random() * 700);
+}
+
+function sendSuggestion(text) {
+  removeSuggestions();
+  addMessage(text, 'user');
+  showTyping();
+  setTimeout(() => { hideTyping(); addMessage(generateResponse(text), 'ai'); }, 800 + Math.random() * 700);
+}
+
+function handleChatKeypress(e) { if (e.key === 'Enter') sendMessage(); }
+
+function addMessage(text, type) {
+  const messages = document.getElementById('chat-messages');
+  const msg = document.createElement('div');
+  msg.className = `message ${type}`;
+  msg.innerHTML = text.replace(/\n/g, '<br>');
+  messages.appendChild(msg);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function showTyping() {
+  const messages = document.getElementById('chat-messages');
+  const typing = document.createElement('div');
+  typing.className = 'typing-indicator';
+  typing.id = 'typing-indicator';
+  typing.innerHTML = '<span></span><span></span><span></span>';
+  messages.appendChild(typing);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function hideTyping() {
+  const indicator = document.getElementById('typing-indicator');
+  if (indicator) indicator.remove();
+}
+
+async function handleFileSelect(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  addMessage(`📎 Enviando comprovante: ${file.name}`, 'user');
+  showToast('📤 Enviando para aprovação...', 'warning');
+  const planType = prompt('Qual plano você comprou?\n1 - Mensal (R$ 19,90)\n2 - Anual (R$ 99,99)\nDigite 1 ou 2:', '1');
+  const plan = planType === '2' ? 'annual' : 'monthly';
+  const amount = planType === '2' ? '99.99' : '19.90';
+  const formData = new FormData();
+  formData.append('proof', file);
+  formData.append('plan_type', plan);
+  formData.append('amount', amount);
+  formData.append('installments', planType === '2' ? '12' : '2');
+  try {
+    const response = await fetch(`${API_BASE}/payments/upload-proof`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${userToken}` },
+      body: formData
+    });
+    const data = await response.json();
+    if (response.ok) {
+      addMessage(`✅ <strong>PAGAMENTO APROVADO!</strong>\n\n🎉 <strong>PREMIUM ATIVADO!</strong>\n\n👩 <strong>Destinatário:</strong> Ana Paula da Silva Sarto\n👨‍💻 <strong>Devs:</strong> Gabriel & Miguel\n📧 <strong>Contato (apenas dúvidas):</strong> contatobiolink.ai@gmail.com\n\n✨ Seu premium foi ativado no sistema!\n⏱️ Válido por ${data.expires_in_months} meses\n\n<strong>Obrigado!</strong> 🚀`, 'ai');
+      if (currentUser) {
+        currentUser.is_premium = true;
+        currentUser.free_uses = 999;
+        localStorage.setItem('biolink_user', JSON.stringify(currentUser));
+        updateAuthUI();
+      }
+      showToast('🎉 Premium ativado! Recarregue a página.', 'success');
+      setTimeout(() => window.location.reload(), 3000);
+    } else {
+      addMessage(`❌ Erro: ${data.error}`, 'ai');
+      showToast('❌ Erro ao aprovar', 'error');
+    }
+  } catch (err) {
+    console.error('Erro:', err);
+    addMessage(`❌ Erro de conexão. Tente novamente ou envie email para contatobiolink.ai@gmail.com (apenas dúvidas e coisas importantes)`, 'ai');
+    showToast('❌ Erro de conexão', 'error');
+  }
+  e.target.value = '';
+}
+
+function generateResponse(message) {
+  const lower = message.toLowerCase();
+  if (lower.includes('plano') || lower.includes('preço') || lower.includes('valor')) {
+    return `💰 <strong>Planos:</strong>\n\n🔹 <strong>Mensal:</strong> R$ 19,90/mês\n• 2x R$ 9,95\n• 60% OFF (de R$ 49,99)\n• IA GPT-4\n\n🌟 <strong>Anual:</strong> R$ 99,99/ano\n• 12x R$ 8,33\n• 29% OFF + 2 meses\n• IA GPT-5.3\n\n⚠️ Email é apenas para dúvidas e coisas importantes!\n📧 contatobiolink.ai@gmail.com`;
+  }
+  if (lower.includes('comprovante') || lower.includes('pagamento') || lower.includes('pix')) {
+    return `📤 <strong>Como Enviar Comprovante:</strong>\n\n1️⃣ Após pagar, volte <strong>NESTE CHAT</strong>\n2️⃣ Clique no 📎 (anexo) aqui embaixo\n3️⃣ Selecione a imagem do comprovante\n4️⃣ Clique em Enviar!\n\n⚡ <strong>Aprovação AUTOMÁTICA!</strong>\nSeu premium é ativado NA HORA!\n\n👩 <strong>Destinatário:</strong> Ana Paula da Silva Sarto\n\n⚠️ <strong>IMPORTANTE:</strong>\nEnvie AQUI NO CHAT, não por email!\n\n📧 <strong>Email é apenas para dúvidas e coisas importantes:</strong>\ncontatobiolink.ai@gmail.com`;
+  }
+  if (lower.includes('afiliado') || lower.includes('comissao') || lower.includes('indicacao')) {
+    return `👥 <strong>Programa de Afiliados:</strong>\n\n💰 <strong>Comissões:</strong>\n• Mensal: R$ 5,00\n• Anual: R$ 10,00\n\n🎯 <strong>Como Funciona:</strong>\n1. Crie conta\n2. Acesse Dashboard\n3. Copie seu código\n4. Compartilhe\n5. Ganhe!\n\n📧 contatobiolink.ai@gmail.com (apenas dúvidas)`;
+  }
+  if (lower.includes('criar') || lower.includes('tutorial') || lower.includes('como')) {
+    return `📚 <strong>Como Criar:</strong>\n\n1️⃣ Crie conta (5 usos grátis!)\n2️⃣ Personalize (tema, cores)\n3️⃣ Adicione links\n4️⃣ Compartilhe!\n\n⏱️ Tempo: menos de 5 min!`;
+  }
+  if (lower.includes('garantia') || lower.includes('reembolso')) {
+    return `🛡️ <strong>Garantia de 7 Dias:</strong>\n\n• 100% dinheiro de volta\n• Sem perguntas\n• Email: contatobiolink.ai@gmail.com (apenas dúvidas e coisas importantes)\n\n📧 Resposta em 24h!`;
+  }
+  if (lower.includes('instagram') || lower.includes('insta')) {
+    return `📸 <strong>Instagrams:</strong>\n\n• Site: @biolink.ai\n• Gabriel: @off_bielzinkkj\n• Miguel: @dnn.bastos\n• Miguel: @dnbergii`;
+  }
+  if (lower.includes('oi') || lower.includes('olá')) {
+    return `👋 Olá! Como posso te ajudar?\n\nPosso ajudar com:\n• 💰 Planos\n• 📤 Comprovante (envie AQUI NO CHAT!)\n• 👥 Afiliados\n• 📚 Tutorial\n• 🛡️ Garantia\n\n📧 Email é apenas para dúvidas e coisas importantes: contatobiolink.ai@gmail.com`;
+  }
+  return `Entendi! 🤖\n\nPosso ajudar com:\n• 💰 Planos e preços\n• 📤 Enviar comprovante (AQUI NO CHAT!)\n• 👥 Afiliados\n• 📚 Como criar\n• 🛡️ Garantia\n\n⚠️ Email é apenas para dúvidas e coisas importantes!\n📧 contatobiolink.ai@gmail.com`;
+}
+
+// ============================================
+// REVIEW SYSTEM
+// ============================================
+function initStarRating() {
+  const stars = document.querySelectorAll('.star');
+  stars.forEach(star => {
+    star.addEventListener('mouseover', function() {
+      const value = parseInt(this.getAttribute('data-value'));
+      stars.forEach((s, index) => {
+        if (index < value) { s.classList.add('filled'); s.textContent = '★'; }
+        else { s.classList.remove('filled'); s.textContent = '☆'; }
+      });
+    });
+    star.addEventListener('click', function() {
+      selectedRating = parseInt(this.getAttribute('data-value'));
+      document.getElementById('rating-text').textContent = getRatingText(selectedRating);
+      stars.forEach((s, index) => {
+        if (index < selectedRating) {
+          s.classList.add('animate');
+          setTimeout(() => s.classList.remove('animate'), 300);
+        }
+      });
+    });
+    star.addEventListener('mouseout', function() {
+      if (selectedRating === 0) {
+        stars.forEach(s => { s.classList.remove('filled'); s.textContent = '☆'; });
+      }
+    });
+  });
+}
+
+function getRatingText(rating) {
+  const texts = { 1: '😞 Muito ruim', 2: '😐 Ruim', 3: '😊 Regular', 4: '😄 Bom', 5: '🤩 Excelente!' };
+  return texts[rating] || '';
+}
+
+async function submitReview() {
+  if (selectedRating === 0) { showToast('⚠️ Por favor, selecione uma avaliação!', 'warning'); return; }
+  const feedbackText = document.getElementById('feedback-text').value.trim();
+  const feedbackEmail = document.getElementById('feedback-email').value.trim();
+  if (!feedbackText) { showToast('⚠️ Por favor, escreva sua opinião!', 'warning'); return; }
+  showToast('📤 Enviando avaliação...', 'warning');
+  const review = { id: Date.now(), rating: selectedRating, text: feedbackText, email: feedbackEmail || 'Anônimo', date: new Date().toISOString(), verified: currentUser?.is_premium || false };
+  try {
+    if (userToken) {
+      const response = await fetch(`${API_BASE}/pages/review`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${userToken}` },
+        body: JSON.stringify({ rating: selectedRating, text: feedbackText, email: feedbackEmail || 'Anônimo' })
+      });
+      if (response.ok) { saveReviewLocal(review); showSuccess(); }
+      else { saveReviewLocal(review); showSuccess(); }
+    } else { saveReviewLocal(review); showSuccess(); }
+  } catch (err) { console.error('Erro ao enviar avaliação:', err); saveReviewLocal(review); showSuccess(); }
+}
+
+function saveReviewLocal(review) {
+  const reviews = JSON.parse(localStorage.getItem('biolink_reviews') || '[]');
+  reviews.unshift(review);
+  localStorage.setItem('biolink_reviews', JSON.stringify(reviews.slice(0, 10)));
+  loadReviews();
+}
+
+function showSuccess() {
+  document.getElementById('review-success').classList.remove('hidden');
+  document.getElementById('feedback-text').value = '';
+  document.getElementById('feedback-email').value = '';
+  document.getElementById('rating-text').textContent = '';
+  selectedRating = 0;
+  document.querySelectorAll('.star').forEach(s => { s.classList.remove('filled'); s.textContent = '☆'; });
+  setTimeout(() => { document.getElementById('review-success').classList.add('hidden'); }, 5000);
+  showToast('✅ Avaliação enviada com sucesso!', 'success');
+}
+
+function loadReviews() {
+  const reviewsList = document.getElementById('reviews-list');
+  const reviews = JSON.parse(localStorage.getItem('biolink_reviews') || '[]');
+  if (reviews.length === 0) {
+    reviewsList.innerHTML = `<div class="text-center" style="color:var(--gray);padding:2rem;"><p>Seja o primeiro a avaliar! ⭐</p></div>`;
+    return;
+  }
+  reviewsList.innerHTML = reviews.map(review => `
+    <div class="review-card">
+      <div class="review-header">
+        <div>
+          <span class="review-stars">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</span>
+          <span class="review-anonymous" style="margin-left:0.5rem;">
+            ${review.email === 'Anônimo' ? 'Usuário Anônimo' : review.email.split('@')[0]}
+            ${review.verified ? ' ✅' : ''}
+          </span>
+        </div>
+        <span class="review-date">${new Date(review.date).toLocaleDateString('pt-BR')}</span>
+      </div>
+      <p class="review-text">${review.text}</p>
+    </div>
+  `).join('');
+}
+
+// ============================================
+// TOAST
+// ============================================
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-message').textContent = message;
+  toast.className = `toast ${type} show`;
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+</script>
+
+</body>
+</html>

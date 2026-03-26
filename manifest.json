@@ -1,0 +1,53 @@
+{
+  "name": "Biolink.ai - Link-in-Bio Profissional com IA",
+  "short_name": "Biolink.ai",
+  "description": "Crie seu link-in-bio profissional com IA integrada. 5 usos grátis! Garantia de 7 dias.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0A0A0F",
+  "theme_color": "#6A57FF",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "pt-BR",
+  "categories": ["social", "productivity", "business", "marketing"],
+  "authors": [
+    {"name": "Gabriel da Silva Sarto", "url": "https://www.instagram.com/off_bielzinkkj/"},
+    {"name": "Miguel de Bastos Oliveira", "url": "https://www.instagram.com/dnn.bastos/"}
+  ],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' viewBox='0 0 192 192'%3E%3Crect fill='%236A57FF' width='192' height='192' rx='40'/%3E%3Ctext x='50%25' y='55%25' font-family='Poppins' font-size='90' fill='white' text-anchor='middle' font-weight='800'%3EB%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'%3E%3Crect fill='%236A57FF' width='512' height='512' rx='100'/%3E%3Ctext x='50%25' y='55%25' font-family='Poppins' font-size='250' fill='white' text-anchor='middle' font-weight='800'%3EB%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Criar Página",
+      "short_name": "Criar",
+      "description": "Criar nova página link-in-bio",
+      "url": "/index.html#dashboard",
+      "icons": [{"src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect fill='%236A57FF' width='96' height='96' rx='20'/%3E%3Ctext x='50%25' y='55%25' font-family='Poppins' font-size='40' fill='white' text-anchor='middle'%3E+%3C/text%3E%3C/svg%3E", "sizes": "96x96"}]
+    },
+    {
+      "name": "Ver Planos",
+      "short_name": "Planos",
+      "description": "Ver planos e preços",
+      "url": "/index.html#pricing",
+      "icons": [{"src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96'%3E%3Crect fill='%23F59E0B' width='96' height='96' rx='20'/%3E%3Ctext x='50%25' y='55%25' font-family='Poppins' font-size='40' fill='white' text-anchor='middle'%3E$%3C/text%3E%3C/svg%3E", "sizes": "96x96"}]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": { "title": "title", "text": "text", "url": "url" }
+  }
+}
