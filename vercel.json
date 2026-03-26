@@ -2,12 +2,12 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
+      "src": "frontend/index.html",
+      "use": "@vercel/static"
     },
     {
-      "src": "frontend/**",
-      "use": "@vercel/static"
+      "src": "backend/server.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -16,11 +16,18 @@
       "dest": "backend/server.js"
     },
     {
+      "src": "/admin.html",
+      "dest": "backend/admin.html"
+    },
+    {
+      "src": "/pro.html",
+      "dest": "backend/pro.html"
+    },
+    {
       "src": "/(.*)",
       "dest": "frontend/$1"
     }
   ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "outputDirectory": "frontend",
+  "installCommand": "cd backend && npm install"
 }
